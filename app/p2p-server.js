@@ -3,7 +3,7 @@
  */
 const Websocket = require('ws');
 
-const P2P_PORT = process.env.P2P_PORT || 5000;
+const P2P_PORT = process.env.P2P_PORT || 5001;
 const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 
 class P2PServer {
@@ -35,14 +35,24 @@ class P2PServer {
 
         this.messageHandler(socket);
 
-        socket.send(JSON.stringify(this.blockchain.chain));
+        this.sendChain(socket);
     }
 
     messageHandler(socket) {
         socket.on('message', message => {
             const data = JSON.parse(message);
             console.log('Data: ', data);
+
+            this.blockchain.replaceChain(data);
         });
+    }
+
+    sendChain(socket){
+        socket.send(JSON.stringify(this.blockchain.chain));
+    }
+
+    syncChains() {
+        this.sockets.forEach(socket => this.sendChain(socket));
     }
 }
 

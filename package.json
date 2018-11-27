@@ -7,19 +7,18 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node ./app/bin/www",
-    "develop": "nodemon ./app/bin/www",
-    "test": "jest --watchAll"
+    "start": "node ./app",
+    "develop": "nodemon ./app",
+    "test": "jest --watchAll",
+    "dev-test": "nodemon dev-test"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cookie-parser": "^1.4.3",
     "crypto-js": "^3.1.9-1",
-    "debug": "^3.1.0",
     "express": "^4.16.3",
-    "http-errors": "^1.6.3",
-    "morgan": "^1.9.0",
-    "pug": "^2.0.3",
     "ws": "^5.2.1"
   },
   "devDependencies": {
